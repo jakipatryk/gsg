@@ -56,8 +56,8 @@ def print_tiles(n):
 
 
 def pixel_coords_to_pos(i, j):
-    pos_x = (i + tiles_border) // block_pixel_size
-    pos_y = (tiles_border - j) // block_pixel_size
+    pos_x = (i + tiles_border + block_pixel_size//2) // block_pixel_size
+    pos_y = (tiles_border - j + block_pixel_size//2) // block_pixel_size
 
     return pos_x, pos_y
 
@@ -91,10 +91,15 @@ def next_level():
     gsg.next_level()
 
 
+def in_tiles_range(pos_x, pos_y):
+    return 0 <= pos_x < tiles_size and 0 <= pos_y < tiles_size
+
+
 def click(x, y):
-    print(x, y)
     x, y = int(x), int(y)
     pos_x, pos_y = pixel_coords_to_pos(x, y)
+    if not in_tiles_range(pos_x, pos_y):
+        return
     screen_x = -tiles_border + (pos_x * block_pixel_size)
     screen_y = tiles_border - (pos_y * block_pixel_size)
 
