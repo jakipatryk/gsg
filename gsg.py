@@ -7,7 +7,7 @@ block_pixel_size = 24
 
 wn = turtle.Screen()
 wn.bgcolor("black")
-tiles_size = 4
+tiles_size = 20
 
 tiles_pixel_size = tiles_size * block_pixel_size
 screen_size = tiles_pixel_size + 100
@@ -44,6 +44,16 @@ class Full(turtle.Turtle):
         self.shape('square')
         self.penup()
         self.speed(0)
+
+
+class Writer(turtle.Turtle):
+    def __init__(self):
+        turtle.Turtle.__init__(self)
+        self.color("red")
+        self.penup()
+        self.hideturtle()
+        self.speed(0)
+        self.goto(-tiles_border, -tiles_border-(block_pixel_size * 2.5))
 
 
 class Tiles:
@@ -96,6 +106,8 @@ def in_tiles_range(pos_x, pos_y):
 
 empty = Empty()
 full = Full()
+writer = Writer()
+writer.write("messi fan", font=("Arial", 16, "normal"))
 
 levels = generate_levels.generate_levels(tiles_size)
 tiles = Tiles(tiles_size)
