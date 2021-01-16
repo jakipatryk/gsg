@@ -1,11 +1,13 @@
 import turtle
 import game
+import generate_levels
+
 
 block_pixel_size = 24
 
 wn = turtle.Screen()
 wn.bgcolor("black")
-tiles_size = 6
+tiles_size = 4
 
 tiles_pixel_size = tiles_size * block_pixel_size
 screen_size = tiles_pixel_size + 100
@@ -70,23 +72,18 @@ level = game.Level([[1, 0, 1, 0, 1, 0],
                     [1, 0, 1, 0, 1, 0],
                     [1, 0, 1, 0, 1, 0],
                     [1, 0, 1, 0, 1, 0]], 100, 100)
-levels = [level]
+
+levels = generate_levels.generate_levels(tiles_size)
 
 gsg = game.Game(levels)
 
 
 def restart_level():
-    turtle.Screen().resetscreen()
-    for turtl in turtle.Screen().turtles():
-        turtl.hideturtle()
     print_tiles(tiles_size)
     gsg.restart_level()
 
 
 def next_level():
-    turtle.Screen().resetscreen()
-    for turtl in turtle.Screen().turtles():
-        turtl.hideturtle()
     print_tiles(tiles_size)
     gsg.next_level()
 
