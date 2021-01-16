@@ -39,7 +39,7 @@ class Game:
 
     def next_level(self):
         self.current_level_index += 1
-        self.current_level = self.levels[current_level_index]
+        self.current_level = self.levels[self.current_level_index]
         self.correct_picks = 0
         self.all_picks = 0
 
