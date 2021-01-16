@@ -82,7 +82,7 @@ def generate_levels(board_size):
         n += 1
     for fib in fibs:
         grid[fib] = 1
-    levels.append(Level(grid.reshape(board_size, board_size), 2, np.sum(grid)))
+    levels.append(Level(grid.reshape(board_size, board_size), np.sum(grid)+2, np.sum(grid)))
 
     # LEVEL 5
     grid = np.array([0 for i in range(board_size ** 2)])
@@ -98,7 +98,7 @@ def generate_levels(board_size):
         n += 1
     for catalan in catalans:
         grid[catalan] = 1
-    levels.append(Level(grid.reshape(board_size, board_size), 2, np.sum(grid)))
+    levels.append(Level(grid.reshape(board_size, board_size), np.sum(grid)+2, np.sum(grid)))
 
     return levels
 
