@@ -109,6 +109,7 @@ def pixel_coords_to_pos(i, j):
 def restart_level():
     print_tiles(tiles_size)
     tiles.reset()
+    gsg.restart_level()
 
 
 def next_level():
@@ -128,7 +129,7 @@ full = Full()
 down_writer = DownWriter()
 down_writer.write("Current level: 1", font=("Arial", 16, "normal"))
 up_writer = UpWriter()
-up_writer.write("q - quite | r - restart level",
+up_writer.write("q - quit | r - restart level",
                 font=("Arial", 16, "normal"))
 
 levels = generate_levels.generate_levels(tiles_size)
