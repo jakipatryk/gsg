@@ -1,6 +1,6 @@
 import numpy as np
 from math import sqrt
-import game
+from game import Level
 
 def generate_levels(board_size):
     levels = list()
