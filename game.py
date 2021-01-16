@@ -23,7 +23,7 @@ class Game:
         # -1 -> dobra i go to next level
         # -2 -> zła i restart level
         self.all_picks += 1
-        picked = self.current_level[x][y]
+        picked = self.current_level.grid[y][x]
         if picked:
             self.correct_picks += 1
         if self.correct_picks == self.current_level.num_of_good_tiles:
