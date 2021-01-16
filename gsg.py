@@ -5,9 +5,15 @@ import generate_levels
 
 block_pixel_size = 24
 
+# turtle.register_shape("green_tile.gif")
+# turtle.register_shape("red_tile.gif")
+# turtle.register_shape("grey_tile.gif")
+# turtle.register_shape("grey_to_green_tile.gif")
+# turtle.register_shape("grey_appear.gif")
+
 wn = turtle.Screen()
 wn.bgcolor("black")
-tiles_size = 20
+tiles_size = 10
 
 tiles_pixel_size = tiles_size * block_pixel_size
 screen_size = tiles_pixel_size + 100
@@ -46,7 +52,7 @@ class Full(turtle.Turtle):
         self.speed(0)
 
 
-class Writer(turtle.Turtle):
+class DownWriter(turtle.Turtle):
     def __init__(self):
         turtle.Turtle.__init__(self)
         self.color("red")
@@ -54,6 +60,16 @@ class Writer(turtle.Turtle):
         self.hideturtle()
         self.speed(0)
         self.goto(-tiles_border, -tiles_border-(block_pixel_size * 2.5))
+
+
+class UpWriter(turtle.Turtle):
+    def __init__(self):
+        turtle.Turtle.__init__(self)
+        self.color("orange")
+        self.penup()
+        self.hideturtle()
+        self.speed(0)
+        self.goto(-tiles_border, tiles_border+block_pixel_size)
 
 
 class Tiles:
@@ -98,6 +114,9 @@ def restart_level():
 def next_level():
     print_tiles(tiles_size)
     tiles.reset()
+    down_writer.clear()
+    down_writer.write(
+        f"Current level: {gsg.current_level_index + 1}", font=("Arial", 16, "normal"))
 
 
 def in_tiles_range(pos_x, pos_y):
@@ -106,8 +125,11 @@ def in_tiles_range(pos_x, pos_y):
 
 empty = Empty()
 full = Full()
-writer = Writer()
-writer.write("messi fan", font=("Arial", 16, "normal"))
+down_writer = DownWriter()
+down_writer.write("Current level: 1", font=("Arial", 16, "normal"))
+up_writer = UpWriter()
+up_writer.write("q - quite | r - restart level",
+                font=("Arial", 16, "normal"))
 
 levels = generate_levels.generate_levels(tiles_size)
 tiles = Tiles(tiles_size)
@@ -142,6 +164,10 @@ def click(x, y):
 
 
 print_tiles(tiles_size)
+
+turtle.listen()
+turtle.onkey(exit, "q")
+turtle.onkey(restart_level, "r")
 wn.onscreenclick(click)
 
 turtle.done()
