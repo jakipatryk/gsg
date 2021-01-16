@@ -31,7 +31,7 @@ class Unknown(turtle.Turtle):
 class Empty(turtle.Turtle):
     def __init__(self):
         turtle.Turtle.__init__(self)
-        self.color("green")
+        self.color("red")
         self.shape('square')
         self.penup()
         self.speed(0)
@@ -40,10 +40,26 @@ class Empty(turtle.Turtle):
 class Full(turtle.Turtle):
     def __init__(self):
         turtle.Turtle.__init__(self)
-        self.color("red")
+        self.color("green")
         self.shape('square')
         self.penup()
         self.speed(0)
+
+
+class Tiles:
+    def __init__(self, n):
+        self.n = n
+        self.tiles = [[False for i in range(n)] for j in range(n)]
+
+    def pick(self, i, j):
+        if self.tiles[i][j]:
+            return False
+        else:
+            self.tiles[i][j] = True
+            return True
+
+    def reset(self):
+        self.tiles = [[False for i in range(self.n)] for j in range(self.n)]
 
 
 def print_tiles(n):
@@ -64,38 +80,36 @@ def pixel_coords_to_pos(i, j):
     return pos_x, pos_y
 
 
-empty = Empty()
-full = Full()
-level = game.Level([[1, 0, 1, 0, 1, 0],
-                    [1, 0, 1, 0, 1, 0],
-                    [1, 0, 1, 0, 1, 0],
-                    [1, 0, 1, 0, 1, 0],
-                    [1, 0, 1, 0, 1, 0],
-                    [1, 0, 1, 0, 1, 0]], 100, 100)
-
-levels = generate_levels.generate_levels(tiles_size)
-
-gsg = game.Game(levels)
-
-
 def restart_level():
     print_tiles(tiles_size)
-    gsg.restart_level()
+    tiles.reset()
 
 
 def next_level():
     print_tiles(tiles_size)
-    gsg.next_level()
+    tiles.reset()
 
 
 def in_tiles_range(pos_x, pos_y):
     return 0 <= pos_x < tiles_size and 0 <= pos_y < tiles_size
 
 
+empty = Empty()
+full = Full()
+
+levels = generate_levels.generate_levels(tiles_size)
+tiles = Tiles(tiles_size)
+
+gsg = game.Game(levels)
+
+
 def click(x, y):
     x, y = int(x), int(y)
     pos_x, pos_y = pixel_coords_to_pos(x, y)
     if not in_tiles_range(pos_x, pos_y):
+        return
+    pick = tiles.pick(pos_x, pos_y)
+    if not pick:
         return
     screen_x = -tiles_border + (pos_x * block_pixel_size)
     screen_y = tiles_border - (pos_y * block_pixel_size)
