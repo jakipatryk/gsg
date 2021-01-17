@@ -15,13 +15,29 @@ def generate_levels(board_size):
                         sum(grid) + 2, sum(grid)))
 
     # LEVEL 2
+    grid = [(i // board_size) % 2 for i in range(board_size**2)]
+    levels.append(Level(to_2d(grid, board_size),
+                        sum(grid) + 2, sum(grid)))
+
+    # LEVEL 3
     grid = [0 for i in range(board_size ** 2)]
     for i in range(board_size):
         grid[i**2] = 1
     levels.append(Level(to_2d(grid, board_size),
                         sum(grid) + 2, sum(grid)))
 
-    # LEVEL 3
+    # LEVEL 4
+    grid = [0 for i in range(board_size ** 2)]
+    fact = 1
+    next_mul = 2
+    while fact < board_size**2:
+        grid[fact] = 1
+        fact *= next_mul
+        next_mul += 1
+    levels.append(Level(to_2d(grid, board_size),
+                        sum(grid) + 2, sum(grid)))
+
+    # LEVEL 5
     grid = [0 for i in range(board_size ** 2)]
     primes = [x for x in range(
         2, board_size**2) if not [i for i in range(2, int(sqrt(x)) + 1) if x % i == 0]]
@@ -30,7 +46,7 @@ def generate_levels(board_size):
     levels.append(Level(to_2d(grid, board_size),
                         sum(grid) + 2, sum(grid)))
 
-    # LEVEL 4
+    # LEVEL 6
     grid = [0 for i in range(board_size ** 2)]
     fibs = [0, 1]
     n = 1
@@ -42,7 +58,7 @@ def generate_levels(board_size):
     levels.append(Level(to_2d(grid, board_size),
                         sum(grid) + 2, sum(grid)))
 
-    # LEVEL 5
+    # LEVEL 7
     grid = [0 for i in range(board_size ** 2)]
     catalans = [1]
     n = 0
