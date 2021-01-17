@@ -5,15 +5,9 @@ import generate_levels
 
 block_pixel_size = 24
 
-# turtle.register_shape("green_tile.gif")
-# turtle.register_shape("red_tile.gif")
-# turtle.register_shape("grey_tile.gif")
-# turtle.register_shape("grey_to_green_tile.gif")
-# turtle.register_shape("grey_appear.gif")
-
 wn = turtle.Screen()
 wn.bgcolor("black")
-tiles_size = 10
+tiles_size = 16
 
 tiles_pixel_size = tiles_size * block_pixel_size
 screen_size = tiles_pixel_size + 100
